@@ -1,0 +1,51 @@
+class CuentaBancaria:
+    def __init__(self, titular, saldo_inicial):
+        self.titular = titular
+        self._historial = []
+        self.__saldo = saldo_inicial
+        self._historial.append(f"Cuenta creada con saldo inicial: {saldo_inicial}")
+# getter para saldo
+    def get_saldo(self):
+        return self.__saldo
+    
+# setter para saldo con validacion 
+    def set_saldo(self, nuevo_saldo):
+        if nuevo_saldo < 0:
+            print ("El saldo no puede ser negativo.")
+        else:
+            self.__saldo = nuevo_saldo
+            self._historial.append(f"Saldo actualizado a: {nuevo_saldo}")
+    def depositar(self, monto):
+        if monto <= 0:
+            print("El monto a depositar debe mayor a 0.")
+        else:
+            self.__saldo += monto
+            self._historial.append(f"Depósito: {monto}.")
+    
+    def retirar(self, monto):
+        if monto <= 0:
+            print("El monto a retirar debe ser mayor a 0.")
+        elif monto > self.__saldo:
+            print("Fondos insuficientes.")
+        else:
+            self.__saldo -= monto
+            self._historial.append(f"Retiro: {monto}.")
+    
+    def ver_saldo(self):
+        print(f"Saldo actual: {self.__saldo}")
+    
+    def  ver_historial(self):
+        print("Historial de transacciones:")
+        for transaccion in self._historial:
+            print(transaccion)
+            
+# Crear una cuenta
+cuenta = CuentaBancaria("Fabian", 100000)
+# Depositar dinero
+cuenta.depositar(50000)
+# Retirar dinero
+cuenta.retirar(30000)
+# Mostrar saldo
+cuenta.ver_saldo()
+# Mostrar historial
+cuenta.ver_historial()
